@@ -1,11 +1,8 @@
-import * as fs from "fs"
-
-// https://github.com/francoismassart/eslint-plugin-tailwindcss/pull/381
-// import eslintPluginTailwindcss from "eslint-plugin-tailwindcss"
-import eslintPluginImport from "eslint-plugin-import"
 import eslintPluginNext from "@next/eslint-plugin-next"
-import eslintPluginStorybook from "eslint-plugin-storybook"
+import eslintPluginImport from "eslint-plugin-import"
 import typescriptEslint from "typescript-eslint"
+
+import * as fs from "fs"
 
 const eslintIgnore = [
   ".git/",
@@ -23,8 +20,6 @@ const config = typescriptEslint.config(
   {
     ignores: eslintIgnore,
   },
-  //  https://github.com/francoismassart/eslint-plugin-tailwindcss/pull/381
-  // ...eslintPluginTailwindcss.configs["flat/recommended"],
   typescriptEslint.configs.recommended,
   eslintPluginImport.flatConfigs.recommended,
   {
@@ -65,7 +60,14 @@ const config = typescriptEslint.config(
       "import/order": [
         "warn",
         {
-          groups: ["external", "builtin", "internal", "sibling", "parent", "index"],
+          groups: [
+            "external",
+            "builtin",
+            "internal",
+            "sibling",
+            "parent",
+            "index",
+          ],
           pathGroups: [
             ...getDirectoriesToSort().map((singleDir) => ({
               pattern: `${singleDir}/**`,
@@ -86,6 +88,7 @@ const config = typescriptEslint.config(
             },
           ],
           pathGroupsExcludedImportTypes: ["internal"],
+          "newlines-between": "always", // Add newlines between import groups
           alphabetize: {
             order: "asc",
             caseInsensitive: true,
